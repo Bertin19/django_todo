@@ -12,15 +12,11 @@
     {% else %}
         Hello anonymous user
     {% endif %}
-    <a href="/create">Create Your Todo Here</a>
-    <br>
-    <br>
-   <ul>
-       {% for todo in todo_list %}
-        <li>
-           <a href="/{{ todo.id }}">{{todo.name}}</a> description {{todo.description}} it's due {{todo.due_date}}
-        </li>
-       {% endfor %}
-   </ul> 
+    <h4>Create Todo</h4>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">create</button>
+    </form>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Todo
+from .forms import TodoForm
 
 # Create your views here.
 
@@ -22,3 +23,18 @@ def todo_detail(request, id):
         'todo': todo
     }
     return render(request, "todo/todo_detail.html", context)
+
+
+# Create
+def todo_create(request):
+    # if POST-request sent then form will be populated
+    form = TodoForm(request.POST or None)
+
+    if form.is_valid():
+        print(form.cleaned_data)
+        # create a todo object
+        form.save()
+        return redirect('/')
+    context = {'form': form}
+    return render(request, "todo/todo_create.html", context)
+        

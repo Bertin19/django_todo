@@ -1,26 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Todo</title>
-</head>
-<body>
-    {% if request.user.is_authenticated %}
-        Hello {{ request.user.username }}
-    {% else %}
-        Hello anonymous user
-    {% endif %}
-    <a href="/create">Create Your Todo Here</a>
-    <br>
-    <br>
-   <ul>
-       {% for todo in todo_list %}
-        <li>
-           <a href="/{{ todo.id }}">{{todo.name}}</a> description {{todo.description}} it's due {{todo.due_date}}
-        </li>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center mt-5 jumbotron vertical-center">
+        <p>
+             {% if request.user.is_authenticated %}
+                Hello {{ request.user.username }}
+            {% else %}
+                Hello anonymous user
+            {% endif %}
+        </p>
+    </div>
+    
+   
+
+    <div class="col-4 offset-4 jumbotron vertical-center">
+        {% for todo in todo_list %}
+        <div class="card text-center mt-3">
+            <div class="card-header">
+                <a href="/{{ todo.id }}"><h4>{{todo.name}}</h4></a>
+            </div>
+           <!-- <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{todo.description}}</li>
+                <li class="list-group-item">{{todo.due_date}}</li>
+            </ul>-->
+            <table class="card-table table">
+                <thead>
+                  <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Until</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{todo.description}}</td>
+                    <td>{{todo.due_date}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
        {% endfor %}
-   </ul> 
-</body>
-</html>
+    </div>
+
+    <div class="text-center mt-3 jumbotron vertical-center">
+        <a class="btn btn-primary" href="/create">Create Your Todo Here</a>
+    </div>
+
+{% endblock content %}

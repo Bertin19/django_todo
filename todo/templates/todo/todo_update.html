@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Todo</title>
-</head>
-<body>
-    {% if request.user.is_authenticated %}
+{% extends 'base.html' %}
+
+{% block content %}
+    <!--{% if request.user.is_authenticated %}
         Hello {{ request.user.username }}
     {% else %}
         Hello anonymous user
-    {% endif %}
-    <h4>Create Todo</h4>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">create</button>
-    </form>
-</body>
-</html>
+    {% endif %}-->
+    <div class="col-4 offset-4">
+        <h4>Update Todo</h4>
+        <form method="POST" class="form-inline justify-content-center">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">create</button>
+            <a href="/" class="btn btn-secondary">home</a>
+        </form>
+    </div>
+
+{% endblock content %}
